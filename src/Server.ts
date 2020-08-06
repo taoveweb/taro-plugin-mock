@@ -1,5 +1,6 @@
 import * as http from 'http'
 import * as https from 'https'
+import * as bodyParser from 'body-parser'
 
 import * as express from 'express'
 import * as getPort from 'get-port'
@@ -21,12 +22,15 @@ export default class Server {
 
   constructor (options: IServerOptions) {
     this.app = express()
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
     this.isHttps = options.https || false
     this.port = options.port || 9527
     this.host = options.host || '127.0.0.1'
-    this.setMiddlewares(options.middlewares)
-    this.createServer()
-  }
+    this.setMiddlewares(options.middlewares);
+    this.createServer();
+
+  }  
 
   setMiddlewares (middlewares?: express.RequestHandler<any>[]) {
     if (middlewares && middlewares.length) {

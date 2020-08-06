@@ -1,6 +1,6 @@
 {
-  "name": "@tarojs/plugin-mock",
-  "version": "0.0.6",
+  "name": "@jltd/plugin-mock",
+  "version": "0.0.8",
   "description": "Taro 数据 Mock 插件",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NervJS/taro-plugin-mock.git"
+  },
+  "publishConfig": {
+    "registry": "http://192.168.4.214:8081/repository/npm-hosted/"
   },
   "keywords": [
     "Taro"
