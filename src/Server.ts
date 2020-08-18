@@ -1,10 +1,12 @@
-import * as http from 'http'
-import * as https from 'https'
+import { chalk } from '@tarojs/helper'
 import * as bodyParser from 'body-parser'
-
 import * as express from 'express'
 import * as getPort from 'get-port'
-import { chalk } from '@tarojs/helper'
+import * as http from 'http'
+import * as https from 'https'
+
+const cors = require('cors')
+
 
 interface IServerOptions {
   https?: boolean
@@ -23,6 +25,7 @@ export default class Server {
   constructor (options: IServerOptions) {
     this.app = express()
     this.app.use(bodyParser.json());
+    this.app.use(cors());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.isHttps = options.https || false
     this.port = options.port || 9527

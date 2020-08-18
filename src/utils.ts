@@ -86,11 +86,16 @@ export function createMockMiddleware ({
   const mockDir = path.join(appPath, MOCK_DIR)
   const watcher = chokidar.watch(mockDir, { ignoreInitial: true })
   let mockApis = getMockApis({ appPath, mocks })
+  watcher.on('change', path => {
+    console.log('CHANGED',path);
+    mockApis = getMockApis({ appPath, mocks });
+  });
   watcher.on('all', () => {
     mockApis = getMockApis({ appPath, mocks })
   })
   process.once('SIGINT', async () => {
-    await watcher.close()
+    process.exit(1);
+    //await watcher.close()
   })
   return (req, res, next) => {
     const { path: reqPath, method: reqMethod } = req
